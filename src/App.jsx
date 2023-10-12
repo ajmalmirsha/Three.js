@@ -1,71 +1,124 @@
-import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import gsap from "gsap";
+
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+
+import React, { useEffect, useRef, useState } from "react";
 import "./App.css";
+// import DateRangePicker from "@wojtekmaj/react-daterange-picker";
+// import "@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css";
+// import "react-calendar/dist/Calendar.css";
 
+// import DatePicker from "react-multi-date-picker";
+import { DateRangePicker } from "rsuite";
+
+import 'rsuite/dist/rsuite.min.css';
+
+// import { MantineProvider } from "@mantine/core";
+// import { DateRangePicker, Provider, defaultTheme } from "@adobe/react-spectrum";
+
+import { Input, MantineProvider } from "@mantine/core";
+import { DatePickerInput } from "@mantine/dates";
 function App() {
-  const canvasRef = useRef(null);
+  // useEffect(() => {
+  //   const canvas = document.querySelector('.display')
 
-  useEffect(() => {
-    // creating a scene
-    const scene = new THREE.Scene();
+  //   const sizes = {
+  //     width: window.innerWidth,
+  //     height: window.innerHeight,
+  //   };
 
-    // create sphere
-    const geometry = new THREE.SphereGeometry(3, 64, 64);
-    const material = new THREE.MeshStandardMaterial({ color: "#00ff83" });
-    const mesh = new THREE.Mesh(geometry, material);
-    scene.add(mesh);
+  //   const scene = new THREE.Scene();
 
-    // setup camera
-    const camera = new THREE.PerspectiveCamera(45, 800 / 600, 0.1, 100);
-    camera.position.z = 20;
+  //   scene.background = new THREE.Color(0xcbd6ce);
 
-    // // set light
-    // const light = new THREE.PointLight(0xffffff, 1, 100);
-    // light.position.set(0, 10, 10); // Move the light
-    // scene.add(light);
+  //   const gltfLoader = new GLTFLoader();
+  //   gltfLoader.load("/3dfiles/porshe/scene.gltf", (gltfScene) => {
+  //     scene.add(gltfScene.scene);
+  //   });
+  //   const light = new THREE.PointLight(0xffffff, 500, 100);
+  //   light.position.set(10, 20, 10);
+  //   scene.add(light);
+  //   const sideLight = new THREE.AmbientLight(0xffffff, 10, 100);
+  //   sideLight.position.set(0, 0, 0);
+  //   scene.add(sideLight);
 
-    // Add a directional light to the scene to cast shadows on the sphere.
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(10, 10, 10);
-    scene.add(directionalLight);
+  //   const ampientLight = new THREE.AmbientLight(0xffffff, 1)
+  //   scene.add(ampientLight);
 
-    // render
-    const canvas = canvasRef.current;
-    const renderer = new THREE.WebGLRenderer({ canvas });
-    renderer.setSize(800, 600);
+  //   // camera
+  //   const camera = new THREE.PerspectiveCamera(50, sizes.width / sizes.height);
+  //   camera.position.z = 10;
 
-    // controlls
+  //   scene.add(camera);
 
-    const controlls = new OrbitControls(camera, canvas);
-    controlls.enableDamping = true
-    controlls.enableZoom = false
-    controlls.autoRotate = true
-    controlls.autoRotateSpeed = 15
-    controlls.enableRotate = true
+  //   const controls = new OrbitControls(camera, canvas);
+  //   controls.enableDamping = true;
+  //   controls.autoRotate = true;
+  //   controls.enableZoom = false
+
+  //   const renderer = new THREE.WebGLRenderer({ canvas });
+
+  //   const loop = () => {
+  //     controls.update();
+  //     renderer.setSize(sizes.width, sizes.height);
+  //     renderer.render(scene, camera);
+  //     window.requestAnimationFrame(loop);
+  //   };
+
+  //   loop();
+
+  //   const timeLine = gsap.timeline({ defaults: { duration: 1 } });
+  //   // timeLine.fromTo(mesh.scale, { x: 0, y: 0, z: 0 }, { x: 1, y: 1, z: 1 });
+  //   timeLine.fromTo(canvas.current, { opacity: 0 }, { opacity: 1 });
+  // }, []);
+
+  const [value, onChange] = useState(null);
+const DateRef = useRef()
+  const handleChange = (value) => {
+    onChange(value)
+    console.log(value);
+    //     start date is  09/10/2023
+    //     end date is  19/10/2023
+  };
 
 
-    const animate = () => {
-      // Render the scene continuously
-      renderer.render(scene, camera);
-      requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    const loop = () => {
-      // mesh.position.x += 0.02
-      controlls.update()
-      renderer.render(scene, camera);
-      window.requestAnimationFrame(loop);
-    };
-    loop();
-  }, []);
 
   return (
     <>
-      hello world
-      <canvas className="display" ref={canvasRef}></canvas>
+      {/* <canvas className="display" ></canvas> */}
+      <DateRangePicker showOneCalendar ref={DateRef} format="dd-MM-yy" cleanable={false} onChange={handleChange} />
+      <>
+      {/* <DatePicker range format="DD-MM-YY" value={value}  onChange={handleChange} dateSeparator=" to " /> */}
+
+      {/* <CDateRangePicker label="Date range" locale="en-US" />
+     <CDateRangePicker startDate="2022/08/03" endDate="2022/08/17" label="Date range" locale="en-US" />  */}
+
+      {/* <Provider theme={defaultTheme} colorScheme="light" defaultColorScheme="light">
+        <DateRangePicker
+          shouldForceLeadingZeros
+          // value={range}
+          onChange={handleChange}
+          width={300}
+          aria-label="Choose a date range"
+        />
+      </Provider> */}
+
+      {/* <DateRangePicker /> */}
+
+      {/* <Input /> */}
+
+      {/* <DatePickerInput
+        type="range"
+        label="Pick dates range"
+        placeholder="Pick dates range"
+        
+        // value={value}
+        // onChange={setValue}
+      /> */}
+      </>
     </>
   );
 }
