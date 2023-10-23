@@ -1,18 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
-import { DateRangePicker, LocalizationProvider } from "@mui/x-date-pickers-pro";
-
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-
 function App() {
- 
-
   return (
     <>
-      hello world
-      <LocalizationProvider dateAdapter={AdapterDayjs} >
-      <DateRangePicker localeText={{ start: 'Check-in', end: 'Check-out' }} />
-      </LocalizationProvider>
+      <div className="div">page 1</div>
+      <div className="div" style={{backgroundColor:'black',color:'white'}} >page 2</div>
+      <div className="div">page 3</div>
     </>
   );
 }
