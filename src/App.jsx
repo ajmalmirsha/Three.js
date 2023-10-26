@@ -6,7 +6,6 @@ function App() {
       <div className="div">page 1</div>
       <div className="div" style={{backgroundColor:'black',color:'white'}} >page 2</div>
       <div className="div">page 3</div>
-      <div className="div">page 4</div>
     </>
   );
 }
