@@ -1,11 +1,16 @@
-import React from "react";
+// import {useParams} from "react";
+import { Route, Routes, useSearchParams } from "react-router-dom";
 import "./App.css";
+import Test from "./Test";
 function App() {
   return (
-    <>
-      <div className="div">page 1</div>
-      <div className="div" style={{backgroundColor:'black',color:'white'}} >page 2</div>
-      <div className="div">page 3</div>
+    <>    
+    <Routes  >
+      <Route path="/home" element={<Test/>} />
+    </Routes>
+    <Routes  >
+      <Route path="/about" element={<>about</>} />
+    </Routes>
     </>
   );
 }
